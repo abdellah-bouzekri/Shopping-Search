@@ -18,24 +18,23 @@ function App() {
   useEffect(() => {
     ProductApi();
   }, []);
+
   // function to add produit to cart
-  const AddToCart = (item) => {
+
+  function AddToCart(item) {
     setCart((pervcart) => {
       const productInCart = pervcart.find((product) => product.id == item.id);
       if (productInCart) {
-        // Return a new array, with the updated quantity for the product
-        return pervcart.map((product) =>
-          product.id === item.id
-            ? { ...product, quantity: product.quantity + 1 }
-            : product
-        );
+        return pervcart.map((product) => product.id === item.id)
+          ? { ...product, quantity: product.quantity + 1 }
+          : product;
       } else {
         return [...pervcart, { ...item, quantity: 1 }];
       }
     });
-    // scrool to top bro
+    // scroll to top when the click
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }
 
   // function for total price bro
   function TotalPrice() {
@@ -49,7 +48,7 @@ function App() {
     TotalPrice();
   }, [Cart]);
   // function for search
-  const handleSearch = (e) => {
+  function handleSearch(e) {
     const searchItem = e.target.value.toLowerCase();
     setSearch(searchItem);
 
@@ -57,7 +56,7 @@ function App() {
       product.title.toLowerCase().includes(searchItem)
     );
     setFilteredProducts(filterProducts);
-  };
+  }
   useEffect(() => {
     setFilteredProducts(api);
   }, [api]);
@@ -121,7 +120,11 @@ function App() {
               </div>
             }
           />
-          <Route path="/cart" element={<CartPage Cart={Cart} />} />
+
+          <Route
+            path="/cart"
+            element={<CartPage Cart={Cart} setCart={setCart} />}
+          />
         </Routes>
       </Router>
     </>

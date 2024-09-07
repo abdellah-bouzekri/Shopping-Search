@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
-function CartPage({ Cart }) {
+function CartPage({ Cart, setCart }) {
   const totalprice = Cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-
+  // function to multiply the quantity by 2
+  function handleAddItem(itemId) {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  }
   return (
     <div className="flex items-center justify-center flex-wrap gap-4 p-8">
       {Cart.length === 0 ? (
@@ -23,6 +30,12 @@ function CartPage({ Cart }) {
             <p>Quantity: {item.quantity}</p>
             <p>Price: ${(item.price * item.quantity).toFixed(2)}</p>
             <img src={item.image} alt="image" width={70} />
+            {/* "+" Button to multiply quantity */}
+            <button
+              className="bg-blue-500 text-white font-bold p-1 mt-2"
+              onClick={() => handleAddItem(item.id)}>
+              +
+            </button>
           </div>
         ))
       )}

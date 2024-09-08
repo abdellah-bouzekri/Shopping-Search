@@ -70,12 +70,13 @@ function App() {
   return (
     <>
       <Router>
-        <nav>
+        <nav className="flex items-center justify-evenly ">
           <Link to="/" className="p-4 bg-gray-500 pb-3 m-4 rounded-lg">
             Products🔙
           </Link>
-          <Link to="/cart" className="p-4">
-            Cart ({Cart.length})
+          <Link to="/cart" className="p-4 flex gap-1 bg-slate-400">
+            <h1>Cart ({Cart.length})</h1>
+            <span> 🛒</span>
           </Link>
         </nav>
 

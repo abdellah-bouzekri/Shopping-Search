@@ -22,17 +22,23 @@ function App() {
   // function to add produit to cart
 
   function AddToCart(item) {
-    setCart((pervcart) => {
-      const productInCart = pervcart.find((product) => product.id == item.id);
+    setCart((prevCart) => {
+      const productInCart = prevCart.find((product) => product.id === item.id);
+
       if (productInCart) {
-        return pervcart.map((product) => product.id === item.id)
-          ? { ...product, quantity: product.quantity + 1 }
-          : product;
+        // If product is already in the cart, increase the quantity
+        return prevCart.map((product) =>
+          product.id === item.id
+            ? { ...product, quantity: product.quantity + 1 }
+            : product
+        );
       } else {
-        return [...pervcart, { ...item, quantity: 1 }];
+        // If product is not in the cart, add it with quantity 1
+        return [...prevCart, { ...item, quantity: 1 }];
       }
     });
-    // scroll to top when the click
+
+    // Scroll to top when clicking the button
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 

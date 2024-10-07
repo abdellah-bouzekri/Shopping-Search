@@ -75,7 +75,7 @@ function App() {
   return (
     <>
       <div
-        className={`w-full relative min-h-screen ${
+        className={`w-full relative min-h-screen duration-500 ${
           darkMode ? "bg-slate-900 text-white" : "bg-white text-black"
         }`}>
         <button
